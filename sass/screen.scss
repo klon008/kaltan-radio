@@ -1,0 +1,528 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/utilities";
+@import "webfonts";
+@import "compass/css3/transition";
+@import "compass/css3/box-shadow";
+@import "compass/css3/background-size";
+@import "compass/css3/filter";
+@import "compass/css3/border-radius";
+$left_side_size: 33.33%;
+$player_color: #1e1a1b;
+$player_volume_bg_color: #808080;
+$player_volume_bg_color_c: #00bff3;
+$first-theme-color: #774466;
+$first-theme-color-saturated: #993366;
+$second-theme-color: #dd9977;
+$second-theme-color-saturated: #ff8844;
+$third-theme-color: #eeccaa;
+$third-theme-color: #ffcc88;
+$fourth-theme-color: #eeeedd;
+$fourth-theme-color: #eeffdd;
+$fifth-theme-color: #99bbcc;
+$fifth-theme-color: #77bbee;
+@mixin getOpacity($val) {
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$val+")";
+    /* Netscape */
+    -moz-opacity: $val;
+    /* Konqueror 3.1, Safari 1.1 */
+    -khtml-opacity: $val;
+    /* C553 - Mozilla 1.7b +, Firefox 0.9 +, Safari 1.2+, Opera 9+ */
+    opacity: $val;
+    /* IE 5-7 */
+    filter: alpha(opacity=$val);
+}
+
+@mixin border-all($width, $style, $color) {
+    border-width: $width;
+    border-style: $style;
+    border-color: $color;
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+    background: $color;
+    /* The Fallback */
+    background: rgba($color, $opacity);
+}
+
+@mixin backgroundShorthand($imgpath, $position:50%, $repeat: no-repeat) {
+    background: transparent url(#{$imgpath}) $repeat $position;
+    /* Firefox 3.6+ */
+    -moz-background-size: 100%;
+    /* Safari 3.1+ и Chrome 4.0+ */
+    -webkit-background-size: 100%;
+    /* Opera 9.6+ */
+    -o-background-size: 100%;
+    /* Современные браузеры */
+    background-size: 100%;
+}
+
+#header {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: $left_side_size;
+    height: 100%;
+    z-index: 2;
+    float: right;
+}
+
+#background {
+    @include backgroundShorthand('../images/bg-image3.jpg');
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -9990;
+}
+
+$player-height: 186px;
+$player-width: 266px;
+$padding: 14px;
+$volume-bar-height: 2.5px;
+.player-class {
+    position: absolute;
+    float: right;
+    margin-top: 20px;
+    right: 19px;
+    width: $player-width;
+    height: $player-height;
+}
+
+#player-bg-wrapper {
+    /*overflow: hidden;
+    @extend .player-class;
+    @include getOpacity(0.9);
+    @include box-shadow(0 20px 30px rgba(black, 0.6));
+    border: 1px solid rgba(white, 0.3);
+    text-shadow: 0 1px 1px rgba(black, .4);
+    #player-bg {
+        width: $player-width + 20px;
+        height: $player-height + 20px;
+        margin-top: -10px;
+        z-index: 20;
+        background: white url("../images/album-image.jpg");
+        @include background-size(cover);
+        background-position: center center;
+        @include filter(blur(4px));
+        background-blend-mode: light;
+    }*/
+    #player-bg::before {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        content: ' ';
+        opacity: 0.4;
+        background-image: url('../images/album-image.jpg');
+        @include filter(blur(9px));
+    }
+    @extend .player-class;
+    overflow: hidden;
+    @include background-image(linear-gradient(to bottom, rgba(228, 245, 252, 0.2) 0%, rgba(191, 232, 249, 0.2) 50%, rgba(159, 216, 239, 0.2) 51%, rgba(42, 176, 237, 0.2) 100%));
+    #player-bg {
+        background-color: rgba(white, 0.4);
+        width: $player-width + 20px;
+        height: $player-height + 20px;
+        margin: -10px 0 0 -10px;
+    }
+}
+
+#play-tumbler,
+#volume-tumbler {
+    width: (($player-width - $padding)/100)*11;
+    /*11% от ширины*/
+    height: (($player-width - $padding)/100)*11;
+    /*11% от ширины*/
+    float: left;
+    cursor: pointer;
+    display: block;
+    position: relative;
+}
+
+#play-tumbler,
+#volume-bar {
+    margin-right: (($player-width - $padding)/100)*9;
+    /*9%*/
+}
+
+#volume-bar {
+    background: rgba(black, 0.5);
+    height: $volume-bar-height;
+    width: (($player-width - $padding)/100)*54;
+    /*54% от ширины*/
+    cursor: pointer;
+    float: left;
+    margin-top: ((($player-width - $padding)/100)*11)/2;
+    display: block;
+    &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+}
+
+.player-button-class {
+    width: (($player-width - $padding)/100)*11;
+    /*11% от ширины*/
+    height: (($player-width - $padding)/100)*11;
+    /*11% от ширины*/
+    position: absolute;
+    z-index: 5;
+    top: 0px;
+    left: 0px;
+    fill: white;
+    pointer-events: all;
+}
+
+#play-tumbler {
+    #play-icon,
+    #pause-icon {
+        @extend .player-button-class;
+    }
+}
+
+#volume-tumbler {
+    #mute-icon,
+    #unmute-icon {
+        @extend .player-button-class;
+    }
+}
+
+#unmute-icon,
+#pause-icon {
+    @include getOpacity(0);
+}
+
+#player {
+    @extend .player-class;
+    z-index: 21;
+    padding: $padding;
+    width: $player-width - ($padding*2);
+    height: $player-height - ($padding*2);
+    #player-info {
+        #player-cover {
+            width: 87px;
+            height: 87px;
+            margin-left: auto;
+            margin-right: auto;
+            background-image: url("../images/album-image.jpg");
+            @include background-size(cover);
+            @include border-radius(3px);
+            @include border-all(1px,
+            solid,
+            white);
+        }
+        #player-song {
+            margin: 6px auto 9px auto;
+            text-align: center;
+            color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-kerning: auto;
+            font-size: 16px;
+            font-stretch: normal;
+            font-variant: normal;
+            font-variant-ligatures: normal;
+            font-weight: normal;
+        }
+    }
+}
+
+#site-title {
+    top: 50%;
+    position: absolute;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    right: 19px;
+    div {
+        div {
+            text-align: center;
+            margin-bottom: -40px;
+            margin-left: 15px;
+            #micro-image {
+                width: auto;
+                height: 84px;
+                color: $first-theme-color;
+            }
+        }
+        h1 {
+            text-align: center;
+            a {
+                text-decoration: none;
+                font: 68px 'Giant-Head-OT', sans-serif;
+                color: $first-theme-color-saturated;
+            }
+        }
+        h2 {
+            text-align: center;
+            margin-top: -15px;
+            a {
+                text-decoration: none;
+                font: 34px 'Lobster', cursive, sans-serif;
+                color: $first-theme-color;
+                @include getOpacity(0.7);
+            }
+        }
+    }
+    #menu {
+        position: relative;
+        padding-top: 15px;
+        #navbar {
+            position: absolute;
+            right: 5px;
+            li {
+                overflow: hidden;
+                display: block;
+                margin-bottom: 4px;
+                border-right: 10px solid #dd9977;
+                @include transition-property(border-right-color,
+                all,
+                ease-in-out);
+                @include transition-duration(0.50s);
+                &:hover {
+                    border-right: 10px solid $first-theme-color-saturated;
+                }
+                a {
+                    color: #464646;
+                    padding: 5px;
+                    text-decoration: none;
+                    font-size: 26px;
+                    font-weight: bold;
+                    display: block;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+#content {
+    margin-left: $left_side_size;
+    display: block;
+    z-index: 0;
+    float: left;
+    width: 100%-$left_side_size;
+}
+
+.inner-meta {
+    color: #464646;
+    margin-top: 5px;
+    font-style: italic;
+    text-align: right;
+    font-size: 14px;
+    font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif;
+}
+
+.message-box {
+    width: auto;
+    max-width: 870px;
+    position: relative;
+    padding: 20px;
+    margin: 25px;
+    @include background-opacity($fourth-theme-color,
+    0.9);
+}
+
+.content-block {
+    width: auto;
+    max-width: 870px;
+    color: #464646;
+    font-size: 17px;
+    border-top: 1px dotted;
+    border-bottom: 1px dotted;
+    font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif;
+    text-indent: 24px;
+    p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+.two-colum-content {
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+    -moz-column-gap: 10px;
+    -webkit-column-gap: 10px;
+    column-gap: 10px;
+}
+
+.content-header {
+    color: #ff8844;
+    font-size: 27px;
+    font-family: "Ubuntu", sans-serif;
+    margin-bottom: 0.5em;
+    margin-left: 24px;
+}
+
+.selector-none {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+
+/*Подробнее ->*/
+
+.flat-btn {
+    font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif;
+    font-style: italic;
+    text-align: left;
+    cursor: pointer;
+    color: #da251c;
+    padding: 3px 15px;
+    font-size: 15px;
+    margin-left: auto;
+    position: relative;
+    &:active {
+        position: relative;
+        top: 2px;
+    }
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+
+/*Регулятор громкости*/
+
+#volume-bar-value {
+    background: white;
+    height: $volume-bar-height;
+    cursor: pointer;
+    div {
+        $size: 20px;
+        float: right;
+        width: $size;
+        height: $size;
+        @include border-radius(50%);
+        background: rgba(white, 0.5);
+        position: relative;
+        top: (($size/2) - ($volume-bar-height/2))*-1;
+        right: (($size/2) - ($volume-bar-height/2))*-1;
+        div {
+            position: relative;
+            top: $size/4;
+            right: $size/4;
+            background: white;
+            width: $size/2;
+            height: $size/2;
+            border-radius: 50%;
+            &:hover {
+                background: $first-theme-color;
+            }
+        }
+    }
+}
+
+#volume-bar-wrapper {
+    display: block;
+    width: 100%;
+    height: (($player-width - $padding)/100)*11;
+}
+
+#slider {
+    width: (($player-width - $padding)/100)*54;
+    position: relative;
+}
+
+
+/* Ползунок */
+
+.ui-slider .ui-slider-handle {
+    $size: 20px;
+    position: absolute;
+    z-index: 2;
+    width: $size/2;
+    height: $size/2;
+    background: white;
+    border: none;
+    @include border-radius(50%);
+    &:before {
+        content: " ";
+        float: right;
+        width: $size;
+        height: $size;
+        @include border-radius(50%);
+        background: rgba(white, 0.5);
+        position: relative;
+        top: ($size/4)*-1;
+        right: ($size/4)*-1;
+    }
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+.ui-slider .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    overflow: hidden;
+}
+
+
+/* горизонтальный слайдер (сама полоса по которой бегает ползунок) */
+
+.ui-slider-horizontal {
+    height: 3px;
+    /* задаем высоту согласно дизайна */
+}
+
+
+/* позиционируем ползунки */
+
+.ui-slider-horizontal .ui-slider-handle {
+    $size: 10px;
+    top: (($size/2) - ($volume-bar-height/2))*-1;
+    margin-left: -6px;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 100%;
+}
+
+.ui-slider-horizontal .ui-slider-range-min {
+    left: 0;
+}
+
+.ui-slider-horizontal .ui-slider-range-max {
+    right: 0;
+}
+
+
+/* оформление полосы по которой ходит ползунок */
+
+.ui-widget-content {
+    border: none;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+/* скругление для полосы слайдера */
+
+.ui-corner-all {
+    @include border-radius(0);
+}
+
+
+/*Заполненная часть полосы слайдера*/
+
+.ui-widget-header {
+    border: none;
+    background: white url("../scripts/jquery-ui-1.11.4/imagesui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x;
+    color: #ffffff;
+    font-weight: bold;
+}
