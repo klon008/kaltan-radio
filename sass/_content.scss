@@ -1,0 +1,105 @@
+
+/*Блок сообщения*/
+
+#content {
+    margin-left: $left_side_size;
+    display: block;
+    z-index: 0;
+    float: left;
+    width: 100%-$left_side_size;
+}
+
+
+/*Подпись*/
+
+.inner-meta {
+    color: #464646;
+    margin-top: 5px;
+    font-style: italic;
+    text-align: right;
+    font-size: 14px;
+    font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif;
+}
+
+
+/*Блок сообщения*/
+
+.message-box {
+    width: auto;
+    max-width: 870px;
+    position: relative;
+    padding: 20px;
+    margin: 25px;
+    @include background-opacity(/*$fourth-theme-color*/
+    #E9E9E9,
+    0.9);
+}
+
+
+/*Блок текста новостей*/
+
+.content-block {
+    width: auto;
+    max-width: 870px;
+    color: $text-color;
+    font-size: 21px;
+    font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif;
+    text-indent: 24px;
+    p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+
+/*Двухколоночное сообщение*/
+
+.two-colum-content {
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+    -moz-column-gap: 10px;
+    -webkit-column-gap: 10px;
+    column-gap: 10px;
+}
+
+
+/*Заголовок сообщения*/
+
+.content-header p {
+    color: $second-theme-color-saturated;
+    font-size: 54px;
+    font-family: "Ubuntu", sans-serif;
+    margin-left: 10px;
+}
+
+
+/*Отключение выделение текста*/
+
+.selector-none {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+
+/*Подробнее ->*/
+
+.flat-btn {
+    font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif;
+    font-style: italic;
+    text-align: left;
+    cursor: pointer;
+    color: #da251c;
+    padding: 3px 15px;
+    font-size: 15px;
+    margin-left: auto;
+    position: relative;
+    &:active {
+        position: relative;
+        top: 2px;
+    }
+    &:hover {
+        text-decoration: underline;
+    }
+}

@@ -1,12 +1,13 @@
 @import "compass/css3";
-@include font-face("Giant-Head-OT", 
+@include font-face("Giant-Head-OT",
 	font-files(
-		"Giant-Head-OT/Giant-Head-OT.woff", woff, 
-		"Giant-Head-OT/Giant-Head-OT.ttf", ttf, 
-		"Giant-Head-OT/Giant-Head-OT.svg", svg), 
+		"Giant-Head-OT/Giant-Head-OT.woff", woff,
+		"Giant-Head-OT/Giant-Head-OT.ttf", ttf,
+		"Giant-Head-OT/Giant-Head-OT.svg", svg),
 	"Giant-Head-OT/Giant-Head-OT.eot");
 
 @import url("https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic");
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,700);
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic&subset=latin,cyrillic);
-@import url(http://fonts.googleapis.com/css?family=Montserrat); 
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+@import "http://webfonts.ru/import/fortunagothic.css";

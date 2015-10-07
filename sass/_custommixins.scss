@@ -1,0 +1,36 @@
+@mixin getOpacity($val) {
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$val+")";
+    /* Netscape */
+    -moz-opacity: $val;
+    /* Konqueror 3.1, Safari 1.1 */
+    -khtml-opacity: $val;
+    /* C553 - Mozilla 1.7b +, Firefox 0.9 +, Safari 1.2+, Opera 9+ */
+    opacity: $val;
+    /* IE 5-7 */
+    filter: alpha(opacity=$val);
+}
+
+@mixin border-all($width, $style, $color) {
+    border-width: $width;
+    border-style: $style;
+    border-color: $color;
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+    background: $color;
+    /* The Fallback */
+    background: rgba($color, $opacity);
+}
+
+@mixin backgroundShorthand($imgpath, $position:50%, $repeat: no-repeat) {
+    background: transparent url(#{$imgpath}) $repeat $position;
+    /* Firefox 3.6+ */
+    -moz-background-size: 100%;
+    /* Safari 3.1+ и Chrome 4.0+ */
+    -webkit-background-size: 100%;
+    /* Opera 9.6+ */
+    -o-background-size: 100%;
+    /* Современные браузеры */
+    background-size: 100%;
+}
