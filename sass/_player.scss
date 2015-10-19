@@ -21,7 +21,6 @@ $volume-bar-height: 2.5px;
         content: ' ';
         opacity: 0.4;
         background-image: url($deafult-music-cover-path);
-        @include filter(blur(9px));
         background-position: center center;
     }
     @extend .player-class;
@@ -84,6 +83,9 @@ $volume-bar-height: 2.5px;
     pointer-events: all;
 }
 
+#loading_indicator{
+    @extend .player-button-class;
+}
 #play-tumbler {
     #play-icon,
     #pause-icon {
@@ -98,8 +100,7 @@ $volume-bar-height: 2.5px;
     }
 }
 
-#unmute-icon,
-#pause-icon {
+#mute-icon, #pause-icon, #loading_indicator{
     @include getOpacity(0);
 }
 

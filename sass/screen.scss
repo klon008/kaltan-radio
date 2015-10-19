@@ -4,8 +4,8 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 $left_side_size: 33.33%;
 $player_color: #1e1a1b;
-$first-theme-color: #296B5B;
-$first-theme-color-saturated: #375957;
+$first-theme-color: #F27935;
+$first-theme-color-saturated: #F27935;
 $second-theme-color: #BFBFBF;
 $second-theme-color-saturated: #B37C6A;
 $third-theme-color: #eeccaa;
@@ -43,11 +43,24 @@ $deafult-bg-image: "../images/bg3.jpg";
 }
 
 .background {
-    @include backgroundShorthand($deafult-bg-image);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    img {
+        position: fixed;
+        height: auto;
+        width: 100%;
+    }
+}
+
+canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -9990;
+    z-index: 1;
 }

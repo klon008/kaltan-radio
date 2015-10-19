@@ -15,16 +15,19 @@
             .micro-image {
                 width: auto;
                 height: 84px;
-                fill: $first-theme-color-saturated;
-                color: $first-theme-color-saturated;
+                filter: drop-shadow( 0 0 0.2em #953F0F, 0 0 0.2em #953F0F );
+                -webkit-filter: drop-shadow( 0 0 0.2em #953F0F, 0 0 0.2em #953F0F );
+                -webkit-svg-shadow: 0 0 0.2em #953F0F, 0 0 0.2em #953F0F;
             }
         }
         h1 {
             text-align: center;
             a {
                 text-decoration: none;
-                font: 54px 'Fortuna Gothic FlorishC', sans-serif;
+                font: 54px "Sansita One", sans-serif;
                 color: $first-theme-color-saturated;
+                text-shadow: 0 0 0.2em #953F0F, 0 0 0.2em #953F0F, black 0 0 2px;
+
             }
         }
         h2 {
@@ -32,9 +35,10 @@
             margin-top: -15px;
             a {
                 text-decoration: none;
-                font: 34px 'Lobster', cursive, sans-serif;
+                font: 34px "Lobster", cursive, sans-serif;
                 color: $first-theme-color;
-                @include getOpacity(0.7);
+                @include getOpacity(0.9);
+                text-shadow: 0 0 0.2em #953F0F, 0 0 0.2em #953F0F,  black 0 0 2px;
             }
         }
     }
